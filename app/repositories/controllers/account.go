@@ -3,6 +3,7 @@ package controllers
 import (
 	"jwt/domain/database"
 	"jwt/domain/models"
+	"jwt/until/uid"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -31,6 +32,7 @@ func Register(c echo.Context) error {
 	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 14)
 	account := models.Account{
 		Name:     data["name"],
+		Uid:      uid.Generate(),
 		Email:    data["email"],
 		Password: password,
 	}
