@@ -15,6 +15,7 @@ func Routing() {
 	e.POST("/signup", controllers.Register)
 	e.POST("/login", controllers.Login)
 	e.POST("/logout", controllers.Logout)
+	e.GET("/nowuser", controllers.CurrentUser)
 
 	e.Logger.Fatal(e.Start(":8081"))
 }

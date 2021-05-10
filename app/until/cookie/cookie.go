@@ -7,12 +7,12 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-const cookieName = "jwt"
+const CookieName = "jwt"
 
 func SetCookie(c echo.Context, token string) {
 	// Cookieに保存
 	cookie := new(http.Cookie)
-	cookie.Name = cookieName
+	cookie.Name = CookieName
 	cookie.Value = token
 	cookie.Expires = time.Now().Add(time.Hour * 24)
 	cookie.HttpOnly = true
@@ -22,7 +22,7 @@ func SetCookie(c echo.Context, token string) {
 
 func DeleteCookie(c echo.Context) error {
 	// Cookieに保存
-	cookie, err := c.Cookie(cookieName)
+	cookie, err := c.Cookie(CookieName)
 	if err != nil {
 		return err
 	}

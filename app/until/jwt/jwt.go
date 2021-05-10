@@ -21,3 +21,20 @@ func GenerateToken(c echo.Context, account models.Account) (string, error) {
 
 	return token, err
 }
+
+func ReadToken(c echo.Context, cookie string) (string, error) {
+
+	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{},
+		func(token *jwt.Token) (interface{}, error) {
+			return []byte(config.Config.Secretkey), nil
+		})
+
+	if err != nil {
+		return "error", err
+	}
+
+	// トークンからクレームを取得
+	claims := token.Claims.(*jwt.StandardClaims)
+	err = nil
+	return claims.Issuer, err
+}

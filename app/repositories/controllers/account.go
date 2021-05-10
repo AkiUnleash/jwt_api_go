@@ -3,6 +3,7 @@ package controllers
 import (
 	"jwt/domain/database"
 	"jwt/domain/models"
+	"jwt/middle"
 	"jwt/until/cookie"
 	"jwt/until/jwt"
 	"jwt/until/uid"
@@ -21,6 +22,23 @@ func Account(c echo.Context) error {
 
 	// JSONを返す
 	return c.JSON(http.StatusOK, account)
+}
+
+func CurrentUser(c echo.Context) error {
+
+	// CookieからUIDを取得
+	uid, err := middle.CurrentUserUid(c)
+	if err != nil {
+		return err
+	}
+
+	// uidからUserを取得
+	var account models.Account
+	database.DB.Where("uid = ?", uid).First(&account)
+
+	// JSONを返す
+	return c.JSON(http.StatusOK, account)
+
 }
 
 // アカウントの登録
