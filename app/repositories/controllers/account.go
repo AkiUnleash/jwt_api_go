@@ -1,14 +1,13 @@
 package controllers
 
 import (
-	"jwt/config"
 	"jwt/domain/database"
 	"jwt/domain/models"
+	"jwt/until/cookie"
+	"jwt/until/jwt"
 	"jwt/until/uid"
 	"net/http"
-	"time"
 
-	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -67,26 +66,15 @@ func Login(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, "incrrect password")
 	}
 
-	// JSON Web Token
-	// ヘッダーとペイロードを設定
-	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-		Issuer:    account.Uid,
-		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
-	})
-	token, err := claims.SignedString([]byte(config.Config.Secretkey))
-
+	// JSON Web Tokenの作成
+	token, err := jwt.GenerateToken(c, account)
 	if err != nil {
 		return c.JSON(http.StatusUnauthorized, "unauthenticated")
 	}
 
-	// Cookieに保存
-	cookie := new(http.Cookie)
-	cookie.Name = "jwt"
-	cookie.Value = token
-	cookie.Expires = time.Now().Add(time.Hour * 24)
-	cookie.HttpOnly = true
-	cookie.SameSite = http.SameSiteNoneMode
-	c.SetCookie(cookie)
+	// Cookie保存
+	cookie.SetCookie(c, token)
 
-	return c.JSON(http.StatusOK, token)
+	// 結果出力
+	return c.JSON(http.StatusOK, "success")
 }
