@@ -78,3 +78,14 @@ func Login(c echo.Context) error {
 	// 結果出力
 	return c.JSON(http.StatusOK, "success")
 }
+
+func Logout(c echo.Context) error {
+
+	// Cookie削除
+	if err := cookie.DeleteCookie(c); err != nil {
+		return c.JSON(http.StatusUnauthorized, "unauthenticated")
+	}
+	// 結果出力
+	return c.JSON(http.StatusOK, "success")
+
+}
