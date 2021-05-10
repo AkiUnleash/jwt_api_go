@@ -12,7 +12,7 @@ func Routing() {
 	e := echo.New()
 
 	e.GET("/user", controllers.Account)
-	// e.POST("/login", controllers.Login)
+	e.POST("/login", controllers.Login)
 	e.POST("/signup", controllers.Register)
 
 	e.Logger.Fatal(e.Start(":8081"))
