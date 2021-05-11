@@ -46,3 +46,11 @@ func DiaryRead(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, diary)
 }
+
+func DiaryDelete(c echo.Context) error {
+	id := c.Param("id")
+	var diary []models.Diary
+	database.DB.Where("id = ?", id).Delete(&diary)
+
+	return c.JSON(http.StatusOK, "OK")
+}

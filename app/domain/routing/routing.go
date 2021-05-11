@@ -19,6 +19,7 @@ func Routing() {
 
 	e.GET("diary", controllers.DiaryRead)
 	e.POST("diary", controllers.DiaryWrite)
+	e.DELETE("diary/:id", controllers.DiaryDelete)
 
 	e.Logger.Fatal(e.Start(":8081"))
 }
