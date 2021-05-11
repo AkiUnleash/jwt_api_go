@@ -17,6 +17,7 @@ func Routing() {
 	e.POST("account/logout", controllers.Logout)
 	e.GET("account/nowuser", controllers.CurrentUser)
 
+	e.GET("diary", controllers.DiaryRead)
 	e.POST("diary", controllers.DiaryWrite)
 
 	e.Logger.Fatal(e.Start(":8081"))

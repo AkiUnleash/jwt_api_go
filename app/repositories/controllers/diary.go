@@ -32,3 +32,17 @@ func DiaryWrite(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, diary)
 }
+
+func DiaryRead(c echo.Context) error {
+
+	// CookieからUIDを取得
+	uid, err := middle.CurrentUserUid(c)
+	if err != nil {
+		return err
+	}
+
+	var diary []models.Diary
+	database.DB.Where("uid = ?", uid).Find(&diary)
+
+	return c.JSON(http.StatusOK, diary)
+}
