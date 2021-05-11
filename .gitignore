@@ -1,3 +1,3 @@
 mysql/data
-app/config.ini
-app/go.sum
+api/config.ini
+api/go.sum
