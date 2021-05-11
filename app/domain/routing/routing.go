@@ -11,11 +11,13 @@ import (
 func Routing() {
 	e := echo.New()
 
-	e.GET("/user", controllers.Account)
-	e.POST("/signup", controllers.Register)
-	e.POST("/login", controllers.Login)
-	e.POST("/logout", controllers.Logout)
-	e.GET("/nowuser", controllers.CurrentUser)
+	e.GET("account/user", controllers.Account)
+	e.POST("account/signup", controllers.Register)
+	e.POST("account/login", controllers.Login)
+	e.POST("account/logout", controllers.Logout)
+	e.GET("account/nowuser", controllers.CurrentUser)
+
+	e.POST("diary", controllers.DiaryWrite)
 
 	e.Logger.Fatal(e.Start(":8081"))
 }

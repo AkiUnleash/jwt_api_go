@@ -32,4 +32,5 @@ func Connet() {
 
 	// テーブル自動生成
 	connection.AutoMigrate(&models.Account{})
+	connection.AutoMigrate(&models.Diary{})
 }
