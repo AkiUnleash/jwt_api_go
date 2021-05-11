@@ -9,6 +9,14 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// Login
+// @Summary Diary registratinon process.
+// @Description Can be executed only at login.
+// @tags diary
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Router /diary [post]
 func DiaryWrite(c echo.Context) error {
 
 	// パラメータのBodyからデータをBind
@@ -33,6 +41,14 @@ func DiaryWrite(c echo.Context) error {
 	return c.JSON(http.StatusOK, diary)
 }
 
+// Login
+// @Summary Processing to display diary
+// @Description Can be executed only at login.
+// @tags diary
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Diary
+// @Router /diary/:id [Get]
 func DiaryRead(c echo.Context) error {
 
 	// CookieからUIDを取得
@@ -47,6 +63,14 @@ func DiaryRead(c echo.Context) error {
 	return c.JSON(http.StatusOK, diary)
 }
 
+// Login
+// @Summary Process to delete diary.
+// @Description Can be executed only at login.
+// @tags diary
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Router /diary/:id [Delete]
 func DiaryDelete(c echo.Context) error {
 	id := c.Param("id")
 	var diary []models.Diary

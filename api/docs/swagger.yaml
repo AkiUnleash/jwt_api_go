@@ -1,0 +1,140 @@
+basePath: /
+definitions:
+  models.Account:
+    properties:
+      create_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      uid:
+        type: string
+    type: object
+  models.Diary:
+    properties:
+      body:
+        type: string
+      create_at:
+        type: string
+      delete_at:
+        type: string
+      id:
+        type: integer
+      uid:
+        type: string
+      update_at:
+        type: string
+    type: object
+host: http://localhost:8081
+info:
+  contact: {}
+  description: API for login processing using JWT. Developed in Go langage.
+  license:
+    name: MIT
+    url: https://github.com/tcnksm/tool/blob/master/LICENCE
+  title: JWT-login-example
+  version: 1.0.0
+paths:
+  /account/login:
+    post:
+      consumes:
+      - application/json
+      description: JWT certification
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Account'
+      summary: If the infomation passed in the request body matches the data in the
+        table, a cookie will be issued.
+      tags:
+      - account
+  /account/logout:
+    post:
+      consumes:
+      - application/json
+      description: JWT certification
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: If the cookie exists, delete it.
+      tags:
+      - account
+  /account/nowuser:
+    get:
+      consumes:
+      - application/json
+      description: Browse Account table.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Account'
+      summary: Show infomation about the currently logged in user.
+      tags:
+      - account
+  /account/signup:
+    post:
+      consumes:
+      - application/json
+      description: Use the account table.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Account'
+      summary: Register Account infomation in the database.
+      tags:
+      - account
+  /diary:
+    post:
+      consumes:
+      - application/json
+      description: Can be executed only at login.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Diary registratinon process.
+      tags:
+      - diary
+  /diary/:id:
+    delete:
+      consumes:
+      - application/json
+      description: Can be executed only at login.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Process to delete diary.
+      tags:
+      - diary
+    get:
+      consumes:
+      - application/json
+      description: Can be executed only at login.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Diary'
+      summary: Processing to display diary
+      tags:
+      - diary
+swagger: "2.0"

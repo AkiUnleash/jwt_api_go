@@ -6,6 +6,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/labstack/echo/v4"
+	echoSwagger "github.com/swaggo/echo-swagger"
+	_ "jwt/docs"
 )
 
 func Routing() {
@@ -20,6 +22,8 @@ func Routing() {
 	e.GET("diary", controllers.DiaryRead)
 	e.POST("diary", controllers.DiaryWrite)
 	e.DELETE("diary/:id", controllers.DiaryDelete)
+
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	e.Logger.Fatal(e.Start(":8081"))
 }

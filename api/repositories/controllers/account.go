@@ -13,7 +13,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// アカウント表示
 func Account(c echo.Context) error {
 
 	// CookieのデータからUserを取得
@@ -24,6 +23,14 @@ func Account(c echo.Context) error {
 	return c.JSON(http.StatusOK, account)
 }
 
+// CurentUser
+// @Summary Show infomation about the currently logged in user.
+// @Description Browse Account table.
+// @tags account
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Account
+// @Router /account/nowuser [get]
 func CurrentUser(c echo.Context) error {
 
 	// CookieからUIDを取得
@@ -41,7 +48,14 @@ func CurrentUser(c echo.Context) error {
 
 }
 
-// アカウントの登録
+// Register
+// @Summary Register Account infomation in the database.
+// @Description Use the account table.
+// @tags account
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Account
+// @Router /account/signup [post]
 func Register(c echo.Context) error {
 	var data map[string]string
 
@@ -62,7 +76,14 @@ func Register(c echo.Context) error {
 	return c.JSON(http.StatusOK, account)
 }
 
-// ログイン処理
+// Login
+// @Summary If the infomation passed in the request body matches the data in the table, a cookie will be issued.
+// @Description JWT certification
+// @tags account
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} models.Account
+// @Router /account/login [post]
 func Login(c echo.Context) error {
 
 	// パラメータからデータを抽出
@@ -97,12 +118,21 @@ func Login(c echo.Context) error {
 	return c.JSON(http.StatusOK, "success")
 }
 
+// Login
+// @Summary If the cookie exists, delete it.
+// @Description JWT certification
+// @tags account
+// @Accept  json
+// @Produce  json
+// @Success 200
+// @Router /account/logout [post]
 func Logout(c echo.Context) error {
 
 	// Cookie削除
 	if err := cookie.DeleteCookie(c); err != nil {
 		return c.JSON(http.StatusUnauthorized, "unauthenticated")
 	}
+
 	// 結果出力
 	return c.JSON(http.StatusOK, "success")
 
