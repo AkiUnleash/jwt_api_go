@@ -5,9 +5,10 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
+	_ "jwt/docs"
+
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"
-	_ "jwt/docs"
 )
 
 func Routing() {
@@ -25,5 +26,5 @@ func Routing() {
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
-	e.Logger.Fatal(e.Start(":8081"))
+	e.Logger.Fatal(e.Start(":8082"))
 }

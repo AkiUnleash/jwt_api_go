@@ -16,9 +16,10 @@ func Connet() {
 	DBMS := config.Config.Dbms
 	USER := config.Config.User
 	PASS := config.Config.Pass
+	PROTOCOL := config.Config.Protocol
 	DBNAME := config.Config.Dbname
 
-	CONNECT := USER + ":" + PASS + "@/" + DBNAME
+	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
 
 	connection, err := gorm.Open(DBMS, CONNECT)
 
