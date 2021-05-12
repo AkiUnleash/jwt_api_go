@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -9,6 +9,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUp: React.FC = () => {
+
   const classes = useStyles();
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   return (
     <Container component="main" maxWidth="xs">
@@ -43,7 +48,27 @@ const SignUp: React.FC = () => {
         <Typography component="h1" variant="h5">
           ユーザー登録
         </Typography>
-        <form className={classes.form} noValidate>
+
+        <form className={classes.form} noValidate
+          onSubmit={(async (e) => {
+            e.preventDefault()
+
+            // サインアップ処理
+            await axios.post('http://localhost:8082/account/signup', {
+              email: email,
+              password: password
+            }).then((e) => console.log(e));
+
+            // ログイン処理
+            await axios.post('http://localhost:8082/account/login', {
+              email: email,
+              password: password
+            }, {
+              xsrfHeaderName: 'X-CSRF-Token',
+              withCredentials: true
+            }).then((e) => console.log(e));
+
+          })} >
           <TextField
             variant="outlined"
             margin="normal"
@@ -54,7 +79,10 @@ const SignUp: React.FC = () => {
             name="email"
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
+
           <TextField
             variant="outlined"
             margin="normal"
@@ -65,6 +93,8 @@ const SignUp: React.FC = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             type="submit"
@@ -75,16 +105,16 @@ const SignUp: React.FC = () => {
           >
             登録
           </Button>
-          <Grid container justify="center">
-            <Grid item>
-              <Link to="/login">
-                {"ログインはこちら"}
-              </Link>
-            </Grid>
-          </Grid>
         </form>
+        <Grid container justify="center">
+          <Grid item>
+            <Link to="/login">
+              {"ログインはこちら"}
+            </Link>
+          </Grid>
+        </Grid>
       </div>
-    </Container>
+    </Container >
   );
 }
 
