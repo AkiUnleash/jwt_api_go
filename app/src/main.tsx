@@ -5,10 +5,9 @@ import { Router, Switch, Route } from 'react-router-dom';
 import { browserHistory } from "./history";
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
-import Diary from './components/pages/Diary';
+import Home from './components/pages/Home';
 import { Provider } from "react-redux"
 import { store } from './common/redux/store'
-
 
 const App: React.FC = () => {
   return (
@@ -16,7 +15,7 @@ const App: React.FC = () => {
       <Switch>
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/diary" component={Diary} />
+        <Route exact path="/home" component={Home} />
       </Switch>
     </Router>
   );

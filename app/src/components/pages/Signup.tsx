@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
+import { browserHistory } from '../../history'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -67,6 +68,8 @@ const SignUp: React.FC = () => {
               xsrfHeaderName: 'X-CSRF-Token',
               withCredentials: true
             }).then((e) => console.log(e));
+
+            browserHistory.push('home')
 
           })} >
           <TextField
