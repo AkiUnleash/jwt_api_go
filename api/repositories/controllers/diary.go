@@ -48,7 +48,7 @@ func DiaryWrite(c echo.Context) error {
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} models.Diary
-// @Router /diary/:id [Get]
+// @Router /diary [Get]
 func DiaryRead(c echo.Context) error {
 
 	// CookieからUIDを取得
@@ -58,7 +58,7 @@ func DiaryRead(c echo.Context) error {
 	}
 
 	var diary []models.Diary
-	database.DB.Where("uid = ?", uid).Find(&diary)
+	database.DB.Where("uid = ?", uid).Order("created_at DESC").Find(&diary)
 
 	return c.JSON(http.StatusOK, diary)
 }
