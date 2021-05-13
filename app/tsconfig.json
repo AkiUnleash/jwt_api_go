@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+      "sourceMap": true,
+      "noImplicitAny": true,
+      "allowJs": true,
+      "strictNullChecks": true,
+      "module": "ES6",
+      "target": "ES2015",
+      "jsx": "react",
+      "allowSyntheticDefaultImports": true,
+      "moduleResolution": "node",
+  },
+  "include": [
+      "src",
+  ],
+  "exclude": [
+      "node_modules"
+  ],
+}

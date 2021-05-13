@@ -8,11 +8,18 @@ import (
 	_ "jwt/docs"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 func Routing() {
 	e := echo.New()
+
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowCredentials: true,
+		AllowOrigins:     []string{"http://localhost:5000"},
+		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXCSRFToken},
+	}))
 
 	e.GET("account/user", controllers.Account)
 	e.POST("account/signup", controllers.Register)
