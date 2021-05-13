@@ -9,7 +9,7 @@ services:
       - "5000:5000"
     volumes:
       - ./app:/usr/src/app
-    command: sh -c "yarn docker"
+    command: sh -c "yarn && yarn docker"
     depends_on:
       - api
   api:
